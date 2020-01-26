@@ -58,7 +58,7 @@
         var label = document.getElementById("label");
         label.innerHTML = labels[0];
         window.imagesOffset = 0;
-        window.onmousedown = function(e) {
+        window.onclick = function(e) {
           // animate click
           cursor.style.transform = "scale(0.75)";
           window.setTimeout(function() {
