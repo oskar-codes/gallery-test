@@ -10,16 +10,26 @@
     </div>
     <p id="label"></p>
     <div id="container">
-      <img crossorigin="anonymous" src="https://source.unsplash.com/random/595x842?water" class="poster" />
-      <img crossorigin="anonymous" src="https://source.unsplash.com/random/595x842?landscape" class="poster" />
-      <img crossorigin="anonymous" src="https://source.unsplash.com/random/595x842?background" class="poster" />
-      <img crossorigin="anonymous" src="https://source.unsplash.com/random/595x842?building" class="poster" />
-      <img crossorigin="anonymous" src="https://source.unsplash.com/random/595x842?wallpaper" class="poster" />
-      <img crossorigin="anonymous" src="https://source.unsplash.com/random/595x842?skateboard" class="poster" />
-      <img crossorigin="anonymous" src="https://source.unsplash.com/random/595x842?computer" class="poster" />
-      <img crossorigin="anonymous" src="https://source.unsplash.com/random/595x842?bnw" class="poster" />
-      <img crossorigin="anonymous" src="https://source.unsplash.com/random/595x842?tokyo" class="poster" />
-      <img crossorigin="anonymous" src="https://source.unsplash.com/random/595x842?lights" class="poster" />
+      <img src="posters/poster1.png" class="poster" />
+      <img src="posters/poster2.png" class="poster" />
+      <img src="posters/poster3.png" class="poster" />
+      <img src="posters/poster4.png" class="poster" />
+      <img src="posters/poster5.png" class="poster" />
+      <img src="posters/poster6.png" class="poster" />
+      <img src="posters/poster7.png" class="poster" />
+      <img src="posters/poster8.png" class="poster" />
+      <img src="posters/poster9.png" class="poster" />
+      <img src="posters/poster10.png" class="poster" />
+      <img src="posters/poster11.png" class="poster" />
+      <img src="posters/poster12.png" class="poster" />
+      <img src="posters/poster13.png" class="poster" />
+      <img src="posters/poster14.png" class="poster" />
+      <img src="posters/poster15.png" class="poster" />
+      <img src="posters/poster16.png" class="poster" />
+      <img src="posters/poster17.png" class="poster" />
+      <img src="posters/poster18.png" class="poster" />
+      <img src="posters/poster19.png" class="poster" />
+      <img src="posters/poster20.png" class="poster" />
     </div>
 
     <div id="hider">
@@ -58,7 +68,7 @@
         var label = document.getElementById("label");
         label.innerHTML = labels[0];
         window.imagesOffset = 0;
-        window.onclick = function(e) {
+        window.onmousedown = function(e) {
           // animate click
           cursor.style.transform = "scale(0.75)";
           window.setTimeout(function() {
