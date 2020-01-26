@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Armand's website</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <div id="cursor">
+      <img draggable="false" id="cursor-img" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGlkPSJMYXllcl8xIiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCA1Ni42OSA1Ni42OSIgaGVpZ2h0PSI1MTIiIHZpZXdCb3g9IjAgMCA1Ni42OSA1Ni42OSIgd2lkdGg9IjUxMiI+PGc+PGc+PHBhdGggZD0ibTIwLjA1NyA1MS4wODgtNi4yMzItNi4yMzQgMTYuNTA5LTE2LjUwOS0xNi41MDktMTYuNTEgNi4yMzItNi4yMzIgMjIuMDMxIDIyLjAzLjcxMS43MS0uNzExLjcxNXptLTMuNDA0LTYuMjM0IDMuNDA0IDMuNDA2IDE5Ljg0NS0xOS44NDUuMDAyLS4xMzgtMTkuODQ3LTE5Ljg0Ni0zLjQwNCAzLjQwNCAxNi41MDkgMTYuNTF6IiBkYXRhLW9yaWdpbmFsPSIjMDAwMDAwIiBjbGFzcz0iYWN0aXZlLXBhdGgiIHN0eWxlPSJmaWxsOiNGRkZGRkYiIGRhdGEtb2xkX2NvbG9yPSIjMDAwMDAwIj48L3BhdGg+PC9nPjwvZz4gPC9zdmc+" />
+    </div>
+    <p id="label"></p>
+    <div id="container">
+      <img crossorigin="anonymous" src="https://source.unsplash.com/random/595x842?water" class="poster" />
+      <img crossorigin="anonymous" src="https://source.unsplash.com/random/595x842?landscape" class="poster" />
+      <img crossorigin="anonymous" src="https://source.unsplash.com/random/595x842?background" class="poster" />
+      <img crossorigin="anonymous" src="https://source.unsplash.com/random/595x842?building" class="poster" />
+      <img crossorigin="anonymous" src="https://source.unsplash.com/random/595x842?wallpaper" class="poster" />
+      <img crossorigin="anonymous" src="https://source.unsplash.com/random/595x842?skateboard" class="poster" />
+      <img crossorigin="anonymous" src="https://source.unsplash.com/random/595x842?computer" class="poster" />
+      <img crossorigin="anonymous" src="https://source.unsplash.com/random/595x842?bnw" class="poster" />
+      <img crossorigin="anonymous" src="https://source.unsplash.com/random/595x842?tokyo" class="poster" />
+      <img crossorigin="anonymous" src="https://source.unsplash.com/random/595x842?lights" class="poster" />
+    </div>
+
+    <div id="hider">
+      <p id="loading">loading...</p>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
+    <script>
+      window.onload = function() {
+        document.getElementById("container").style.width = (document.getElementsByClassName("poster").length * 100 + 100) + "vw";
+
+        var hider = document.getElementById("hider");
+        hider.style.opacity = "0";
+        window.setTimeout(function() {
+          hider.style.display = "none";
+        }, 1000);
+
+        var cursor = document.getElementById("cursor");
+        window.onmousemove = function(e) {
+          cursor.style.left = e.clientX + "px";
+          cursor.style.top = e.clientY + "px";
+
+          if (e.clientX < window.innerWidth / 2) {
+            cursor.children[0].style.transform = "translate(-50%, -50%) rotateZ(-180deg)";
+          } else {
+            cursor.children[0].style.transform = "translate(-50%, -50%) rotateZ(0deg)";
+          }
+        }
+        
+        labels = [
+          "First label",
+          "Second label",
+          "Third label",
+          "Fourth label",
+          "Fifth label"
+        ]
+        var label = document.getElementById("label");
+        label.innerHTML = labels[0];
+        window.imagesOffset = 0;
+        window.onmousedown = function(e) {
+          // animate click
+          cursor.style.transform = "scale(0.75)";
+          window.setTimeout(function() {
+            cursor.style.transform = "scale(1)";
+          }, 150)
+
+          // click action
+          var skew = 0;
+          if (e.clientX < window.innerWidth / 2) {
+            if (imagesOffset < 0) {
+              imagesOffset += 100;
+              skew = 5;
+            }
+          } else {
+            if (imagesOffset > -((document.getElementsByClassName("poster").length - 1) * 100)) {
+              imagesOffset -= 100;
+              skew = -5;
+            }
+          }
+          if (skew != 0) {
+            var posters = document.getElementsByClassName("poster");
+            for (var i=0; i<posters.length; i++) {
+              var p = posters[i];
+              p.style.transform = "rotateZ("+ skew +"deg)";
+              window.setTimeout(function(e) {
+                e.style.transform = "rotateZ(0deg)"
+              }, 200, p)
+            }
+          }
+          document.getElementById("container").style.transform = "translateX("+ imagesOffset +"vw)";
+
+          if (labels[-imagesOffset / 100] !== undefined) {
+            if (skew !== 0) {
+              label.style.opacity = "0";
+              window.setTimeout(function() {
+                label.innerHTML = labels[-imagesOffset / 100];
+                window.setTimeout(function() {
+                  label.style.opacity = "1";
+                }, 100)
+              }, 100);
+            }
+          } else {
+            label.style.opacity = "0";
+            window.setTimeout(function() {
+              label.innerHTML = "";
+            }, 100)
+          }
+        }
+
+        const colorThief = new ColorThief();
+        var posters = document.getElementsByClassName("poster");
+        for (var i=0; i<posters.length; i++) {
+          var p = posters[i];
+          var col = colorThief.getColor(p);
+          p.style.setProperty("box-shadow", 
+          "-100px 0px 150px 25px rgba("+ col[0] +", "+ col[1] +", "+ col[2] +", 0.3), 100px 0px 150px 25px rgba("+ col[0] +", "+ col[1] +", "+ col[2] +", 0.3)");
+        }
+      }
+      
+      window.oncontextmenu = function(e) {
+        if (e.which == 3) {
+          e.preventDefault();
+        }
+      }
+    </script>
+  </body>
+</html>
